@@ -1,4 +1,4 @@
-#include "streaming/autoconfig/autoconfigengine.h"
+#include "autoconfigengine.h"
 #include "streamingpreferences.h"
 #include <SDL.h>
 #include <QDebug>
