@@ -513,6 +513,7 @@ DEPENDPATH += $$PWD/../h264bitstream/h264bitstream
 }
 
 INCLUDEPATH += $$PWD/streaming/autoconfig
+INCLUDEPATH += $$PWD
 
 unix:!macx: {
     isEmpty(PREFIX) {
