@@ -52,6 +52,7 @@
 #define SER_KEEPAWAKE "keepawake"
 #define SER_LANGUAGE "language"
 #define SER_SMARTAUTOCONFIG "smartautoconfig"
+#define SER_ULTRALOWLATENCY "ultralowlatency"
 
 #define CURRENT_DEFAULT_VER 2
 
@@ -170,6 +171,7 @@ void StreamingPreferences::reload()
     language = static_cast<Language>(settings.value(SER_LANGUAGE,
                                                     static_cast<int>(Language::LANG_AUTO)).toInt());
     enableSmartAutoconfig = settings.value(SER_SMARTAUTOCONFIG, false).toBool();
+    enableUltraLowLatency = settings.value(SER_ULTRALOWLATENCY, false).toBool();
 
 
     // Perform default settings updates as required based on last default version
@@ -361,6 +363,7 @@ void StreamingPreferences::save()
     settings.setValue(SER_CAPTURESYSKEYS, captureSysKeysMode);
     settings.setValue(SER_KEEPAWAKE, keepAwake);
     settings.setValue(SER_SMARTAUTOCONFIG, enableSmartAutoconfig);
+    settings.setValue(SER_ULTRALOWLATENCY, enableUltraLowLatency);
 }
 
 int StreamingPreferences::getDefaultBitrate(int width, int height, int fps, bool yuv444)

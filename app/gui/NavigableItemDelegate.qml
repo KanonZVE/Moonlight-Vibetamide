@@ -6,6 +6,13 @@ ItemDelegate {
 
     highlighted: grid.activeFocus && grid.currentItem === this
 
+    // Moonlight Vitaminado: Smooth scale and opacity transitions
+    scale: highlighted ? 1.05 : 1.0
+    opacity: highlighted ? 1.0 : 0.9
+
+    Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
+    Behavior on opacity { NumberAnimation { duration: 200 } }
+
     Keys.onLeftPressed: {
         grid.moveCurrentIndexLeft()
     }

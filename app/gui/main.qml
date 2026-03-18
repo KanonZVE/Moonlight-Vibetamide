@@ -264,6 +264,13 @@ ApplicationWindow {
         anchors.topMargin: 5
         anchors.bottomMargin: 5
 
+        // Moonlight Vitaminado: Semitransparent glass toolbar
+        background: Rectangle {
+            color: "#CC202020"
+            border.color: "#20FFFFFF"
+            border.width: 1
+        }
+
         Label {
             id: titleLabel
             visible: toolBar.width > 700

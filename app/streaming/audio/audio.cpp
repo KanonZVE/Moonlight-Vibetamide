@@ -187,10 +187,19 @@ void Session::arDecodeAndPlaySample(char* sampleData, int sampleLength)
         return;
     }
 
+#include "settings/streamingpreferences.h"
+
     if (s_ActiveSession->m_AudioRenderer != nullptr) {
         int sampleSize = s_ActiveSession->m_AudioRenderer->getAudioBufferSampleSize();
         int frameSize = sampleSize * s_ActiveSession->m_ActiveAudioConfig.channelCount;
-        int desiredBufferSize = frameSize * s_ActiveSession->m_ActiveAudioConfig.samplesPerFrame;
+        
+        // Moonlight Vitaminado: Lower audio buffer for ultra low latency
+        int samplesToDecode = s_ActiveSession->m_ActiveAudioConfig.samplesPerFrame;
+        if (StreamingPreferences::get()->enableUltraLowLatency) {
+            samplesToDecode = qMin(samplesToDecode, 240); // Max 5ms buffer
+        }
+        
+        int desiredBufferSize = frameSize * samplesToDecode;
         void* buffer = s_ActiveSession->m_AudioRenderer->getAudioBuffer(&desiredBufferSize);
         if (buffer == nullptr) {
             return;

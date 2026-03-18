@@ -13,14 +13,9 @@
 
 #include <SDL_syswm.h>
 
-// Limit the number of queued frames to prevent excessive memory consumption
-// if the V-Sync source or renderer is blocked for a while. It's important
-// that the sum of all queued frames between both pacing and rendering queues
-// must not exceed the number buffer pool size to avoid running the decoder
-// out of available decoding surfaces.
-#define MAX_QUEUED_FRAMES 3
-static_assert(PACER_MAX_OUTSTANDING_FRAMES == MAX_QUEUED_FRAMES + 2,
-              "PACER_MAX_OUTSTANDING_FRAMES and MAX_QUEUED_FRAMES must agree");
+#include "settings/streamingpreferences.h"
+
+#define MAX_QUEUED_FRAMES (StreamingPreferences::get()->enableUltraLowLatency ? 1 : 3)
 
 // We may be woken up slightly late so don't go all the way
 // up to the next V-sync since we may accidentally step into
@@ -214,7 +209,7 @@ void Pacer::handleVsync(int timeUntilNextVsyncMillis)
     // one queued frame mark.
     if (m_MaxVideoFps >= m_DisplayFps) {
         for (int queueHistoryEntry : std::as_const(m_PacingQueueHistory)) {
-            if (queueHistoryEntry <= 1) {
+            if (queueHistoryEntry <= 1 && !StreamingPreferences::get()->enableUltraLowLatency) {
                 // Be lenient as long as the queue length
                 // resolves before the end of frame history
                 frameDropTarget = 3;

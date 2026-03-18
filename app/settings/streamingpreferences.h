@@ -146,6 +146,7 @@ public:
     Q_PROPERTY(CaptureSysKeysMode captureSysKeysMode MEMBER captureSysKeysMode NOTIFY captureSysKeysModeChanged)
     Q_PROPERTY(Language language MEMBER language NOTIFY languageChanged);
     Q_PROPERTY(bool enableSmartAutoconfig MEMBER enableSmartAutoconfig NOTIFY enableSmartAutoconfigChanged)
+    Q_PROPERTY(bool enableUltraLowLatency MEMBER enableUltraLowLatency NOTIFY enableUltraLowLatencyChanged)
 
     Q_INVOKABLE bool retranslate();
 
@@ -189,6 +190,7 @@ public:
     Language language;
     CaptureSysKeysMode captureSysKeysMode;
     bool enableSmartAutoconfig;
+    bool enableUltraLowLatency;
 
 signals:
     void displayModeChanged();
@@ -227,6 +229,7 @@ signals:
     void keepAwakeChanged();
     void languageChanged();
     void enableSmartAutoconfigChanged();
+    void enableUltraLowLatencyChanged();
 
 private:
     explicit StreamingPreferences(QQmlEngine *qmlEngine);
