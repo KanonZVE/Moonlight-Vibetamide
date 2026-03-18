@@ -1,5 +1,5 @@
 #include "nvcomputer.h"
-#include "streaming/autoconfig/autoconfigengine.h"
+#include "autoconfigengine.h"
 #include <Limelight.h>
 
 #include <QDebug>
