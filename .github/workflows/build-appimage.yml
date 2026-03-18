@@ -157,7 +157,7 @@ jobs:
       - name: Upload Binaries
         uses: actions/upload-artifact@v5
         with:
-          name: Moonlight-LinuxAppImage-${{ env.CI_VERSION }}
-          path: build/installer-release/Moonlight-${{ env.CI_VERSION }}-x86_64.AppImage
+          name: Moonlight-Vibetamide-LinuxAppImage-${{ env.CI_VERSION }}
+          path: build/installer-release/Moonlight-Vibetamide-${{ env.CI_VERSION }}-x86_64.AppImage
           compression-level: 0
           if-no-files-found: error
