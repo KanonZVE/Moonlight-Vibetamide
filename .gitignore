@@ -1,0 +1,21 @@
+# Git Ignore for Moonlight Vitaminado Workspace
+
+# Ignore the cloned sub-repositories (we'll manage them as submodules or just ignore their contents)
+# If the user wants to keep them as part of this repo, we can remove these.
+# But usually, it's better to keep the workspace lightweight.
+# However, the user said "subir esto", which might imply everything.
+# For now, let's ignore the .git folders inside them to avoid nested repo issues.
+
+moonlight-qt/.git
+agent-teams-lite/.git
+
+# Build artifacts and temp files
+*.zip
+*.exe
+engram.zip
+
+# Logs
+*.log
+
+# Workspace specific
+.gemini/
