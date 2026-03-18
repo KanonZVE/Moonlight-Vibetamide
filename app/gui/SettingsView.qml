@@ -849,6 +849,53 @@ Flickable {
         }
 
         GroupBox {
+            id: vibetamideSettingsGroupBox
+            width: (parent.width - (parent.leftPadding + parent.rightPadding))
+            padding: 12
+            title: "<font color=\"#FF55FF\">" + qsTr("Vibetamide Optimizations") + "</font>"
+            font.pointSize: 12
+
+            Column {
+                anchors.fill: parent
+                spacing: 5
+
+                CheckBox {
+                    id: smartAutoconfigCheck
+                    width: parent.width
+                    hoverEnabled: true
+                    text: qsTr("Smart Autoconfiguration")
+                    font.pointSize: 12
+                    checked: StreamingPreferences.enableSmartAutoconfig
+                    onCheckedChanged: {
+                        StreamingPreferences.enableSmartAutoconfig = checked
+                    }
+
+                    ToolTip.delay: 1000
+                    ToolTip.timeout: 5000
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr("Automatically detects display resolution and optimizes bitrate for the best experience on ROG Ally/Bazzite.")
+                }
+
+                CheckBox {
+                    id: ultraLowLatencyCheck
+                    width: parent.width
+                    hoverEnabled: true
+                    text: qsTr("Ultra Low Latency Mode")
+                    font.pointSize: 12
+                    checked: StreamingPreferences.enableUltraLowLatency
+                    onCheckedChanged: {
+                        StreamingPreferences.enableUltraLowLatency = checked
+                    }
+
+                    ToolTip.delay: 1000
+                    ToolTip.timeout: 5000
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr("Reduces video and audio buffering to the absolute minimum. Ideal for competitive gaming, but may cause stutter on unstable networks.")
+                }
+            }
+        }
+
+        GroupBox {
 
             id: audioSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
