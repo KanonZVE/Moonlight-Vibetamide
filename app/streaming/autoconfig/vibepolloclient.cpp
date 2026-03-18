@@ -44,3 +44,29 @@ void VibepolloClient::onReplyFinished(QNetworkReply* reply)
 
     emit capabilitiesReady(doc.object());
 }
+
+void VibepolloClient::fetchCommunityProfile(const QString& gameName, const QString& hardwareId)
+{
+    QUrl url("https://api.vibepollo.io/v1/profiles");
+    QUrlQuery query;
+    query.addQueryItem("game", gameName);
+    query.addQueryItem("hw", hardwareId);
+    url.setQuery(query);
+
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QNetworkReply* reply = m_Nam->get(request);
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+        reply->deleteLater();
+        if (reply->error() != QNetworkReply::NoError) {
+            emit errorOccurred(QString("Vibepollo Cloud Error: %1").arg(reply->errorString()));
+            return;
+        }
+
+        QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
+        if (!doc.isNull() && doc.isObject()) {
+            emit communityProfileReady(doc.object());
+        }
+    });
+}
