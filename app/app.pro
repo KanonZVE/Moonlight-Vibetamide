@@ -512,7 +512,7 @@ DEPENDPATH += $$PWD/../h264bitstream/h264bitstream
     DEPENDPATH += $$PWD/../AntiHooking
 }
 
-INCLUDEPATH += streaming/autoconfig
+INCLUDEPATH += $$PWD/streaming/autoconfig
 
 unix:!macx: {
     isEmpty(PREFIX) {
