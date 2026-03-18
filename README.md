@@ -19,7 +19,7 @@ This project has been **Vibecodeado**: a deep optimization joining the power of 
 - **Community Profiles**: Automatically downloads community-optimized configuration profiles for each specific game and device via the Vibepollo global API.
 - **Smart Handshake**: Seamless capability synchronization between client and host.
 
-### 🌈 Visual Excellence (UX-UI Senior Redesign)
+### 🌈 Visual Excellence (UX-UI Redesign)
 - **Glassmorphism Interface**: A modern, translucent design with rounded corners and crystal effects.
 - **Dynamic Backgrounds**: The application background transforms dynamically, reflecting the selected game's box art with Gaussian blur and dark vignette effects.
 - **Micro-animations**: Smooth scale transitions and glow effects when navigating your game library.
