@@ -196,7 +196,19 @@ If mode is `hybrid`: also call `mem_save` and `mem_update` as above.
 
 If you skip this step, sdd-verify will NOT be able to find your progress and the pipeline BREAKS.
 
-### Step 6: Return Summary
+### Step 6: Commit Changes (Project Convention)
+
+Before returning the summary, you MUST commit your changes if work was successful:
+
+1. **Check branch**: Ensure you are on a branch following `type/description` (e.g., `feat/hdr-10bit`). If not, create it.
+2. **Stage files**: `git add` the files you changed.
+3. **Commit**: Use [conventional commits](https://www.conventionalcommits.org/):
+   - `feat(scope): description`
+   - `fix(scope): description`
+   - `chore(scope): description`
+   - Example: `feat(video): implement 10-bit swapchain for Vulkan`
+
+### Step 7: Return Summary
 
 Return to the orchestrator:
 

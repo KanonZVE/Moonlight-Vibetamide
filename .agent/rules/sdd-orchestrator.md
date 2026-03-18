@@ -35,6 +35,18 @@ Before using Read, Edit, Write, or Grep tools on source/config/skill files:
 
 ---
 
+## Git Workflow Rules
+
+All execution phases (`sdd-apply`, `sdd-verify`, `sdd-archive`) MUST follow these standards:
+
+1. **Branch Management**: Work on branches named `type/description` (e.g., `feat/hdr-10bit`). Avoid working directly on `main`.
+2. **Conventional Commits**: Every successful work batch must result in a commit following `type(scope): description`.
+3. **Automatic Push**: After each commit, the agent MUST execute `git push origin <current-branch>` (or the current tracking branch) to ensure GitHub is always in sync.
+4. **Frequency**: Commit and push after EVERY sub-task marked as completed in `task.md`. Never wait until the end of the session.
+5. **Atomic Changes**: Keep commits focused on a single logical task.
+
+---
+
 ## SDD Workflow (Spec-Driven Development)
 
 ### Artifact Store Policy
