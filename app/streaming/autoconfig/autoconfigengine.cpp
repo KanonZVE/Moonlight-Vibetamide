@@ -2,6 +2,8 @@
 #include "streamingpreferences.h"
 #include <SDL.h>
 #include <QDebug>
+#include <QFile>
+#include <QProcess>
 #include <algorithm>
 
 AutoConfigEngine::AutoConfigEngine(QObject *parent)
@@ -61,11 +63,49 @@ void AutoConfigEngine::optimizeConfiguration(PSTREAM_CONFIGURATION config, const
     // 2. Adjust Bitrate based on detected resolution
     config->bitrate = calculateOptimalBitrate(config->width, config->height, config->fps);
 
-    // 3. Auto-enable HDR if display and host support it (simplified for now, full check later)
+    // 3. Auto-enable HDR if display and host support it
     if (prefs->enableHdr) {
         config->remoteHdrMode = 1;
     }
 
+    // Moonlight Vitaminado: Platform-specific overrides
+    if (isRunningInGamescope()) {
+        qInfo() << "AutoConfig: Gamescope detected! Forcing Borderless Windowed mode.";
+        prefs->windowMode = StreamingPreferences::WM_FULLSCREEN_DESKTOP;
+    }
+
+    if (isRogAlly()) {
+        qInfo() << "AutoConfig: ROG Ally detected! Optimizing touch input.";
+        // On Ally, virtual trackpad is better for desktop navigation via touch
+        prefs->absoluteTouchMode = false; 
+    }
+
     qInfo() << "AutoConfig: Optimized to" << config->width << "x" << config->height 
             << "at" << config->bitrate << "kbps";
+}
+
+bool AutoConfigEngine::isRunningOnBazzite() const
+{
+    QFile osRelease("/etc/os-release");
+    if (osRelease.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QString content = osRelease.readAll();
+        return content.contains("bazzite", Qt::CaseInsensitive);
+    }
+    return false;
+}
+
+bool AutoConfigEngine::isRunningInGamescope() const
+{
+    return qEnvironmentVariableIsSet("GAMESCOPE_WAYLAND_DISPLAY") || 
+           qgetenv("XDG_CURRENT_DESKTOP").toLower().contains("gamescope");
+}
+
+bool AutoConfigEngine::isRogAlly() const
+{
+    QFile boardName("/sys/class/dmi/id/board_name");
+    if (boardName.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QString content = boardName.readAll().trimmed();
+        return content.contains("RC71L") || content.contains("RC72L");
+    }
+    return false;
 }

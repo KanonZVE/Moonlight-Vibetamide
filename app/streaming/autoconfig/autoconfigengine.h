@@ -15,6 +15,10 @@ public:
     // Main entry point to optimize the stream configuration
     void optimizeConfiguration(PSTREAM_CONFIGURATION config, const QString& hostAddress);
 
+    bool isRunningOnBazzite() const;
+    bool isRunningInGamescope() const;
+    bool isRogAlly() const;
+
 private:
     explicit AutoConfigEngine(QObject *parent = nullptr);
     
