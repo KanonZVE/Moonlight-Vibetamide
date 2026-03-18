@@ -22,6 +22,31 @@ ApplicationWindow {
     width: 1280
     height: 600
 
+    // Moonlight Vitaminado: Background layer
+    Item {
+        id: dynamicBackground
+        anchors.fill: parent
+        z: -1
+
+        Image {
+            id: bgImage
+            anchors.fill: parent
+            source: stackView.currentItem && stackView.currentItem.appModel ? stackView.currentItem.currentItem.model.boxart : ""
+            fillMode: Image.PreserveAspectCrop
+            opacity: 0.3
+            visible: source != ""
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#202020" }
+                GradientStop { position: 1.0; color: "#101010" }
+            }
+            opacity: bgImage.visible ? 0.7 : 1.0
+        }
+    }
+
     // This function runs prior to creation of the initial StackView item
     function doEarlyInit() {
         // Override the background color to Material 2 colors for Qt 6.5+

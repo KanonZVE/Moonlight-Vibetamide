@@ -1,6 +1,7 @@
 #include "session.h"
 #include "settings/streamingpreferences.h"
 #include "streaming/streamutils.h"
+#include "autoconfigengine.h"
 #include "backend/richpresencemanager.h"
 
 #include <Limelight.h>

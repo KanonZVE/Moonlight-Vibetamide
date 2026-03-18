@@ -80,6 +80,22 @@ CenteredGridView {
         // Dim the app if it's hidden
         opacity: model.hidden ? 0.4 : 1.0
 
+        // Moonlight Vitaminado: Card Container with Glassmorphism
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: 5
+            radius: 16
+            color: highlighted ? "#40FFFFFF" : "#10FFFFFF"
+            border.color: highlighted ? "#80FFFFFF" : "#20FFFFFF"
+            border.width: 1
+
+            scale: highlighted ? 1.06 : 1.0
+            z: highlighted ? 10 : 1
+
+            Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
+            Behavior on color { ColorAnimation { duration: 150 } }
+        }
+
         Image {
             property bool isPlaceholder: false
 

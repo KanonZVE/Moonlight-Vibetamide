@@ -145,6 +145,7 @@ public:
     Q_PROPERTY(bool keepAwake MEMBER keepAwake NOTIFY keepAwakeChanged)
     Q_PROPERTY(CaptureSysKeysMode captureSysKeysMode MEMBER captureSysKeysMode NOTIFY captureSysKeysModeChanged)
     Q_PROPERTY(Language language MEMBER language NOTIFY languageChanged);
+    Q_PROPERTY(bool enableSmartAutoconfig MEMBER enableSmartAutoconfig NOTIFY enableSmartAutoconfigChanged)
 
     Q_INVOKABLE bool retranslate();
 
@@ -187,6 +188,7 @@ public:
     UIDisplayMode uiDisplayMode;
     Language language;
     CaptureSysKeysMode captureSysKeysMode;
+    bool enableSmartAutoconfig;
 
 signals:
     void displayModeChanged();
@@ -224,6 +226,7 @@ signals:
     void captureSysKeysModeChanged();
     void keepAwakeChanged();
     void languageChanged();
+    void enableSmartAutoconfigChanged();
 
 private:
     explicit StreamingPreferences(QQmlEngine *qmlEngine);

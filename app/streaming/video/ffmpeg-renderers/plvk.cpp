@@ -469,6 +469,13 @@ bool PlVkRenderer::initialize(PDECODER_PARAMETERS params)
 #if PL_API_VER >= 338
     vkSwapchainParams.disable_10bit_sdr = true; // Some drivers don't dither 10-bit SDR output correctly
 #endif
+
+    // Moonlight Vitaminado: Ensure HDR swapchain uses optimal format for Gamescope/Bazzite
+    if (params->videoFormat & VIDEO_FORMAT_MASK_10BIT) {
+        // Prefer 64-bit float or 32-bit 10-bit formats for HDR
+        vkSwapchainParams.prefer_hdr = true;
+    }
+
     m_Swapchain = pl_vulkan_create_swapchain(m_Vulkan, &vkSwapchainParams);
     if (m_Swapchain == nullptr) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
@@ -567,6 +574,12 @@ bool PlVkRenderer::mapAvFrameToPlacebo(const AVFrame *frame, pl_frame* mappedFra
     //
     // As a workaround, set full range manually in the mapped frame ourselves.
     mappedFrame->repr.levels = PL_COLOR_LEVELS_FULL;
+
+    // Moonlight Vitaminado: Force BT.2020 Primaries for HDR10 streams
+    if (frame->format == AV_PIX_FMT_VULKAN && (frame->color_primaries == AVCOL_PRI_BT2020)) {
+        mappedFrame->color.primaries = PL_COLOR_PRIM_BT_2020;
+        mappedFrame->color.transfer = PL_COLOR_TRC_PQ;
+    }
 
     return true;
 }

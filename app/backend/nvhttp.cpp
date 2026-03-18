@@ -1,4 +1,5 @@
 #include "nvcomputer.h"
+#include "autoconfigengine.h"
 #include <Limelight.h>
 
 #include <QDebug>
@@ -200,6 +201,10 @@ NvHTTP::startApp(QString verb,
 
     memcpy(&riKeyId, streamConfig->remoteInputAesIv, sizeof(riKeyId));
     riKeyId = qFromBigEndian(riKeyId);
+
+    // Moonlight Vitaminado: Apply AutoConfig optimizations
+    // This will update width, height, and bitrate based on dynamic resolution detection
+    AutoConfigEngine::instance().optimizeConfiguration(streamConfig, m_Address.address());
 
     QString response =
             openConnectionToString(m_BaseUrlHttps,
