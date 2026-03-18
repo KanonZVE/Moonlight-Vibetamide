@@ -1,5 +1,7 @@
 # 🌔 Moonlight Vibetamide
 
+[![Build Status](https://github.com/KanonZVE/Moonlight-Vibetamide/actions/workflows/build.yml/badge.svg)](https://github.com/KanonZVE/Moonlight-Vibetamide/actions)
+
 **Moonlight Vibetamide** is a premium evolution of Moonlight-Qt, specifically redesigned to deliver the ultimate game streaming experience on **Handheld** devices (ROG Ally, Steam Deck, Legion Go, MSI Claw) and Linux-based systems like **Bazzite**.
 
 ---
