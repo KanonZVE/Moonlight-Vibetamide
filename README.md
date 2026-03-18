@@ -2,63 +2,63 @@
 
 [![Build Status](https://github.com/KanonZVE/Moonlight-Vibetamide/actions/workflows/build.yml/badge.svg)](https://github.com/KanonZVE/Moonlight-Vibetamide/actions)
 
-**Moonlight Vibetamide** is a premium evolution of Moonlight-Qt, specifically redesigned to deliver the ultimate game streaming experience on **Handheld** devices (ROG Ally, Steam Deck, Legion Go, MSI Claw) and Linux-based systems like **Bazzite**.
-
----
-### ⚡ VIBECODEADO ⚡
-This project has been **Vibecodeado**: a deep optimization joining the power of the original engine with the network and visual intelligence of the **Vibetamide** ecosystem. 🚀
+**Moonlight Vibetamide** is a specialized evolution of Moonlight-Qt, meticulously crafted to deliver the ultimate game streaming experience on **Handheld** devices (ROG Ally, Steam Deck, Legion Go, MSI Claw) and Linux distributions like **Bazzite**.
 
 ---
 
-## ✨ "Vitaminized" Features (Vibetamide)
+## ⚡ VIBECODED ⚡
+This project is **Vibecoded**: an intensive optimization process where every line of code has been refined to blend the legendary power of the original engine with the advanced network and visual intelligence of the **Vibetamide** ecosystem. 🚀
+
+---
+
+## ✨ Features
 
 ### 🚀 Handheld Optimization
-- **Smart Autoconfiguration**: Dynamic engine detects your hardware and network to automatically set the optimal resolution and bitrate.
-- **Platform-Aware**: Native detection for **Gamescope**, **Bazzite OS**, and handheld devices. Automatically applies *Borderless Windowed* mode and optimizes touch input (Trackpad Mode).
-- **Ultra Low Latency (Vibetamide Pacer)**: Reduces queued frames buffer and Opus audio buffer to the absolute minimum for near-instant response.
+- **Smart Autoconfiguration**: A dynamic engine that detects your specific hardware and network environment to automatically set the perfect resolution and bitrate.
+- **Platform-Aware Intelligence**: Native detection for **Gamescope**, **Bazzite OS**, and modern handheld devices. It automatically handles *Borderless Windowed* mode and fine-tunes touch input for a seamless experience.
+- **Ultra Low Latency (Vibetamide Pacer)**: Critical optimizations in the video and audio pipelines that reduce buffers to the absolute minimum for near-instant response.
 
 ### 🐔 Vibepollo Cloud Integration
-- **Community Profiles**: Automatically downloads community-optimized configuration profiles for each specific game and device via the Vibepollo global API.
-- **Smart Handshake**: Seamless capability synchronization between client and host.
+- **Community-Driven Profiles**: Automatically syncs with the Vibepollo API to download configuration profiles optimized by the community for your specific game and device.
+- **Intelligent Handshake**: Real-time capability negotiation between the client and host for maximum performance.
 
-### 🌈 Visual Excellence (UX-UI Redesign)
-- **Glassmorphism Interface**: A modern, translucent design with rounded corners and crystal effects.
-- **Dynamic Backgrounds**: The application background transforms dynamically, reflecting the selected game's box art with Gaussian blur and dark vignette effects.
-- **Micro-animations**: Smooth scale transitions and glow effects when navigating your game library.
+### 🌈 UI/UX Redesign
+- **Glassmorphism Aesthetic**: A clean, modern interface featuring translucent elements, rounded corners, and crystal-like effects.
+- **Dynamic Backgrounds**: The UI flows with your library, transforming its background to match the selected game's box art with elegant Gaussian blur and vignette effects.
+- **Fluid Micro-animations**: Polished scale transitions and lighting effects (glow) that make navigating your games feel premium and responsive.
 
-### 💡 Technical Improvements
-- **Vulkan HDR10**: Specific patches to fix 10-bit HDR support on Linux/Vulkan, ensuring vibrant colors and deep blacks.
-- **Adaptive Bitrate**: Enhanced algorithms to maintain stream stability even on congested WiFi networks.
+### 💡 Core Enhancements
+- **Vulkan HDR10 Perfection**: Specific integration fixes for 10-bit HDR on Linux/Vulkan, delivering vibrant colors and deep blacks as they were meant to be seen.
+- **Vibecoded Stability**: Enhanced algorithms to maintain a rock-solid stream even on challenging wireless networks.
 
 ---
 
 ## 🎮 Compatible Devices
-While it works on any PC, **Moonlight Vibetamide** shines on devices running **Bazzite**, **SteamOS**, or **ChimeraOS**:
+While fully functional on any PC, **Moonlight Vibetamide** is optimized for:
 - **ROG Ally / Ally X**
 - **Steam Deck / OLED**
 - **Lenovo Legion Go**
 - **MSI Claw**
+- Any device running **Bazzite**, **SteamOS**, or **ChimeraOS**.
 
 ---
 
-## 🛠️ Installation & Usage
-1. Download the latest version from [KanonZVE/Moonlight-Vibetamide](https://github.com/KanonZVE/Moonlight-Vibetamide).
-2. Enable **Smart Autoconfiguration** in settings.
-3. Enjoy the best handheld streaming experience!
+## ❤️ Respect to the Giants
+**Moonlight Vibetamide** is a fork and stands on the shoulders of the incredible pioneers who built the foundation of game streaming. Our deepest gratitude goes to:
+- The **Moonlight GameStream Team**: For creating the most powerful and versatile open-source streaming client in existence.
+- The **Sunshine Developers**: For their tireless work in keeping the host-side ecosystem independent and accessible.
+- The **Entire Open Source Community**: Every contributor to Moonlight-Qt who made this evolution possible.
 
 ---
 
-## ❤️ Credits & Acknowledgments
-This project is a fork of **Moonlight PC** and wouldn't be possible without the incredible work of its original creators and community:
-- Special thanks to the [Moonlight GameStream](https://moonlight-stream.org) team for creating the best open-source streaming client.
-- Thanks to the [Sunshine](https://github.com/LizardByte/Sunshine) developers for keeping the GameStream ecosystem alive.
-- Thanks to all contributors of the original Moonlight-Qt project.
-
-*Moonlight Vibetamide is built on the shoulders of giants.*
+## 🛠️ Get Started
+1. Download the latest build from [KanonZVE/Moonlight-Vibetamide](https://github.com/KanonZVE/Moonlight-Vibetamide).
+2. Enable **Smart Autoconfiguration** in the settings.
+3. Experience game streaming like never before.
 
 ---
 ## Contribute
-Moonlight Vibetamide is a community project by [KanonZVE](https://github.com/KanonZVE). Feel free to send Pull Requests or report bugs.
+Moonlight Vibetamide is a community-focused project by [KanonZVE](https://github.com/KanonZVE). Please feel free to open Pull Requests or report issues to help us push the handheld experience even further.
 
 ---
-*Optimized for the modern handheld era. Vibecodeado with ❤️.*
+*Vibecoded with ❤️. Dedicated to the Handheld Era.*
