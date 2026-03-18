@@ -39,6 +39,7 @@ While fully functional on any PC, **Moonlight Vibetamide** is optimized for:
 - **Steam Deck / OLED**
 - **Lenovo Legion Go**
 - **MSI Claw**
+- **ARM64 Devices** (Surface Pro, etc. via native Windows ARM64 build)
 - Any device running **Bazzite**, **SteamOS**, or **ChimeraOS**.
 
 ---
