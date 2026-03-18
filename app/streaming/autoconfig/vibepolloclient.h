@@ -14,9 +14,11 @@ public:
     explicit VibepolloClient(QObject *parent = nullptr);
 
     void fetchHostCapabilities(const QString& hostAddress, const QString& apiToken = QString());
+    void fetchCommunityProfile(const QString& gameName, const QString& hardwareId);
 
 signals:
     void capabilitiesReady(const QJsonObject& capabilities);
+    void communityProfileReady(const QJsonObject& profile);
     void errorOccurred(const QString& error);
 
 private slots:

@@ -10,6 +10,10 @@ AutoConfigEngine::AutoConfigEngine(QObject *parent)
     : QObject(parent),
       m_Vibepollo(new VibepolloClient(this))
 {
+    connect(m_Nam, &VibepolloClient::communityProfileReady, this, [this](const QJsonObject& profile) {
+        m_LastCommunityProfile = profile;
+        qInfo() << "AutoConfig: Received community profile from Vibepollo!";
+    });
 }
 
 AutoConfigEngine& AutoConfigEngine::instance()
@@ -59,6 +63,18 @@ void AutoConfigEngine::optimizeConfiguration(PSTREAM_CONFIGURATION config, const
     QSize nativeRes = getCurrentDisplayResolution();
     config->width = nativeRes.width();
     config->height = nativeRes.height();
+
+    // Moonlight Vitaminado: Apply community profile if available
+    if (!m_LastCommunityProfile.isEmpty()) {
+        if (m_LastCommunityProfile.contains("width")) 
+            config->width = m_LastCommunityProfile["width"].toInt();
+        if (m_LastCommunityProfile.contains("height")) 
+            config->height = m_LastCommunityProfile["height"].toInt();
+        if (m_LastCommunityProfile.contains("bitrate"))
+            config->bitrate = m_LastCommunityProfile["bitrate"].toInt();
+        
+        qInfo() << "AutoConfig: Applied community profile overrides!";
+    }
 
     // 2. Adjust Bitrate based on detected resolution
     config->bitrate = calculateOptimalBitrate(config->width, config->height, config->fps);

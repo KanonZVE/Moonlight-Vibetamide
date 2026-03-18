@@ -1,5 +1,6 @@
 #include "vibepolloclient.h"
 #include <QDebug>
+#include <QUrlQuery>
 
 VibepolloClient::VibepolloClient(QObject *parent)
     : QObject(parent),

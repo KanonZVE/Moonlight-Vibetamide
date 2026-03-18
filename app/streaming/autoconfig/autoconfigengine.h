@@ -26,4 +26,5 @@ private:
     int calculateOptimalBitrate(int width, int height, int fps);
 
     VibepolloClient* m_Vibepollo;
+    QJsonObject m_LastCommunityProfile;
 };
