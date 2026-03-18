@@ -196,6 +196,8 @@ SOURCES += \
     gui/sdlgamepadkeynavigation.cpp \
     streaming/video/overlaymanager.cpp \
     backend/systemproperties.cpp \
+    streaming/autoconfig/autoconfigengine.cpp \
+    streaming/autoconfig/vibepolloclient.cpp \
     wm.cpp
 
 HEADERS += \
@@ -233,6 +235,8 @@ HEADERS += \
     settings/mappingmanager.h \
     gui/sdlgamepadkeynavigation.h \
     streaming/video/overlaymanager.h \
+    streaming/autoconfig/autoconfigengine.h \
+    streaming/autoconfig/vibepolloclient.h \
     backend/systemproperties.h
 
 # Platform-specific renderers and decoders
@@ -507,6 +511,8 @@ DEPENDPATH += $$PWD/../h264bitstream/h264bitstream
     INCLUDEPATH += $$PWD/../AntiHooking
     DEPENDPATH += $$PWD/../AntiHooking
 }
+
+INCLUDEPATH += streaming/autoconfig
 
 unix:!macx: {
     isEmpty(PREFIX) {
