@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=Moonlight
+Name=Moonlight Vibetamide
 Comment=Stream games and other applications from another PC running Sunshine or GeForce Experience
-Exec=moonlight
+Exec=vibetamide
 Icon=moonlight
 Terminal=false
 Type=Application

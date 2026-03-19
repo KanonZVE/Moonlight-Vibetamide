@@ -3,7 +3,7 @@
 	<id>com.moonlight_stream.Moonlight</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0+</project_license>
-	<name>Moonlight</name>
+	<name>Moonlight Vibetamide</name>
 	<summary>Stream games and other applications from another PC running Sunshine or GeForce Experience</summary>
 
 	<description>
@@ -30,7 +30,7 @@
 	<update_contact>cameron@moonlight-stream.org</update_contact>
 	<launchable type="desktop-id">com.moonlight_stream.Moonlight.desktop</launchable>
 	<provides>
-		<binary>moonlight</binary>
+		<binary>vibetamide</binary>
 	</provides>
 	<content_rating type="oars-1.1" />	
 

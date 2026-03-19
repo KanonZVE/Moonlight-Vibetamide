@@ -65,8 +65,8 @@ VERSION=$VERSION linuxdeployqt $DEPLOY_FOLDER/usr/share/applications/com.moonlig
   -executable=$DEPLOY_FOLDER/usr/lib/libSDL3.so.0 || fail "linuxdeployqt failed!"
 
 # Rename the generated AppImage to include the version (only if not already named correctly)
-if [ -f Moonlight-x86_64.AppImage ]; then
-    mv Moonlight-x86_64.AppImage Moonlight-$VERSION-x86_64.AppImage || fail "Move failed!"
+if ls *-x86_64.AppImage 1> /dev/null 2>&1; then
+    mv *-x86_64.AppImage Moonlight-$VERSION-x86_64.AppImage || fail "Move failed!"
 fi
 popd
 
