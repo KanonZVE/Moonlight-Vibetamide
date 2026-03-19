@@ -257,8 +257,20 @@ Flickable {
                                 is_custom: false
                             }
                             ListElement {
+                                text: qsTr("800p (Steam Deck)")
+                                video_width: "1280"
+                                video_height: "800"
+                                is_custom: false
+                            }
+                            ListElement {
                                 text: qsTr("1080p")
                                 video_width: "1920"
+                                video_height: "1080"
+                                is_custom: false
+                            }
+                            ListElement {
+                                text: qsTr("Ultrawide 1080p")
+                                video_width: "2560"
                                 video_height: "1080"
                                 is_custom: false
                             }
@@ -266,6 +278,18 @@ Flickable {
                                 text: qsTr("1440p")
                                 video_width: "2560"
                                 video_height: "1440"
+                                is_custom: false
+                            }
+                            ListElement {
+                                text: qsTr("Ultrawide 1440p")
+                                video_width: "3440"
+                                video_height: "1440"
+                                is_custom: false
+                            }
+                            ListElement {
+                                text: qsTr("1600p (Legion Go)")
+                                video_width: "2560"
+                                video_height: "1600"
                                 is_custom: false
                             }
                             ListElement {

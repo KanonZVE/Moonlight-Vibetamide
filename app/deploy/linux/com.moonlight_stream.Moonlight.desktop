@@ -2,7 +2,7 @@
 Name=Moonlight Vibetamide
 Comment=Stream games and other applications from another PC running Sunshine or GeForce Experience
 Exec=vibetamide
-Icon=moonlight
+Icon=vibetamide
 Terminal=false
 Type=Application
 Categories=Qt;Game;Network;RemoteAccess;
