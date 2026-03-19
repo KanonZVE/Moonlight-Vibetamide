@@ -472,8 +472,12 @@ bool PlVkRenderer::initialize(PDECODER_PARAMETERS params)
 
     // Moonlight Vitaminado: Ensure HDR swapchain uses optimal format for Gamescope/Bazzite
     if (params->videoFormat & VIDEO_FORMAT_MASK_10BIT) {
-        // Prefer 64-bit float or 32-bit 10-bit formats for HDR
+        // Prefer 10-bit color depth for HDR
+#if PL_API_VER < 360
         vkSwapchainParams.prefer_hdr = true;
+#else
+        vkSwapchainParams.color_bits = 10;
+#endif
     }
 
     m_Swapchain = pl_vulkan_create_swapchain(m_Vulkan, &vkSwapchainParams);
