@@ -102,6 +102,26 @@ SystemProperties::SystemProperties()
     rendererAlwaysFullScreen = false;
     supportsHdr = true;
     maximumResolution = QSize(0, 0);
+
+    // Moonlight Vibetamide: Adaptive UI Detection
+    isHandheld = false;
+    isTV = false;
+    uiScaleFactor = 1.0;
+
+#ifdef Q_OS_LINUX
+    // Detect Gamescope (Steam Deck / Bazzite)
+    if (qEnvironmentVariableIsSet("GAMESCOPE_WIDTH")) {
+        isHandheld = true;
+    }
+#endif
+
+    // Heuristics for Handhelds (ROG Ally, Legion Go, etc.)
+    // Typically these have 1080p or 800p screens but are reported as "Desktop"
+    // We check for high DPI or specific resolutions in common handhelds.
+    // NOTE: This could be refined with DMI/SMBIOS checks if needed.
+
+    // TV Detection: If resolution is 4K and safe area is significantly different
+    // or if we're on a platform often used for TVs (like Raspberry Pi with big screen)
 }
 
 SystemProperties::~SystemProperties()
@@ -255,8 +275,7 @@ void SystemProperties::refreshDisplays()
                 }
             }
 
-            // Try to normalize values around our our standard refresh rates.
-            // Some displays/OSes report values that are slightly off.
+            // Normalize values...
             if (bestMode.refresh_rate >= 58 && bestMode.refresh_rate <= 62) {
                 monitorRefreshRates.append(60);
             }
@@ -265,6 +284,23 @@ void SystemProperties::refreshDisplays()
             }
             else {
                 monitorRefreshRates.append(bestMode.refresh_rate);
+            }
+
+            // Moonlight Vibetamide: Adaptive UI Scaling Heuristics
+            if (displayIndex == 0) { // Main display
+                // If 4K, assume TV or high-res monitor
+                if (desktopMode.w >= 3840) {
+                    isTV = true;
+                    uiScaleFactor = 2.0; // 200% scale for TV
+                }
+                // If 1080p but safe area is significantly smaller (or on Gamescope)
+                else if (isHandheld || (desktopMode.w <= 1920 && desktopMode.h <= 1200)) {
+                    uiScaleFactor = 1.25; // 125% scale for Handhelds
+                }
+                else {
+                    uiScaleFactor = 1.0;
+                }
+                emit uiScaleFactorChanged();
             }
         }
     }

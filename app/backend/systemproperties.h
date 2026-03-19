@@ -32,6 +32,9 @@ public:
     Q_PROPERTY(QString unmappedGamepads MEMBER unmappedGamepads NOTIFY unmappedGamepadsChanged)
     Q_PROPERTY(QSize maximumResolution MEMBER maximumResolution NOTIFY maximumResolutionChanged)
     Q_PROPERTY(bool supportsHdr MEMBER supportsHdr NOTIFY supportsHdrChanged)
+    Q_PROPERTY(qreal uiScaleFactor MEMBER uiScaleFactor NOTIFY uiScaleFactorChanged)
+    Q_PROPERTY(bool isHandheld MEMBER isHandheld NOTIFY uiScaleFactorChanged)
+    Q_PROPERTY(bool isTV MEMBER isTV NOTIFY uiScaleFactorChanged)
 
     // Either startAsyncLoad()+waitForAsyncLoad() or refreshDisplays() must be invoked first
     Q_INVOKABLE QRect getNativeResolution(int displayIndex);
@@ -48,6 +51,7 @@ signals:
     void rendererAlwaysFullScreenChanged();
     void maximumResolutionChanged();
     void supportsHdrChanged();
+    void uiScaleFactorChanged();
 
 private slots:
     void updateDecoderProperties(bool hasHardwareAcceleration, bool rendererAlwaysFullScreen, QSize maximumResolution, bool supportsHdr);
@@ -72,6 +76,9 @@ private:
     bool rendererAlwaysFullScreen;
     QSize maximumResolution;
     bool supportsHdr;
+    qreal uiScaleFactor;
+    bool isHandheld;
+    bool isTV;
     QString unmappedGamepads;
 
     // Properties set by refreshDisplays()

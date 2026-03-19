@@ -104,7 +104,9 @@ Flickable {
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
             title: "<font color=\"skyblue\">" + qsTr("Basic Settings") + "</font>"
-            font.pointSize: 12
+            font.pointSize: 12 * SystemProperties.uiScaleFactor
+
+            opacity: StreamingPreferences.isVibetamideActive ? 0.6 : 1.0
 
             Column {
                 anchors.fill: parent
@@ -114,15 +116,17 @@ Flickable {
                     width: parent.width
                     id: resFPStitle
                     text: qsTr("Resolution and FPS")
-                    font.pointSize: 12
+                    font.pointSize: 12 * SystemProperties.uiScaleFactor
                     wrapMode: Text.Wrap
                 }
 
                 Label {
                     width: parent.width
                     id: resFPSdesc
-                    text: qsTr("Setting values too high for your PC or network connection may cause lag, stuttering, or errors.")
-                    font.pointSize: 9
+                    text: StreamingPreferences.isVibetamideActive ? 
+                          qsTr("Managed by Vibetamide Adaptive Engine") : 
+                          qsTr("Setting values too high for your PC or network connection may cause lag, stuttering, or errors.")
+                    font.pointSize: 9 * SystemProperties.uiScaleFactor
                     wrapMode: Text.Wrap
                 }
 
@@ -292,6 +296,8 @@ Flickable {
 
                             lastIndexValue = currentIndex
                         }
+
+                        enabled: !StreamingPreferences.isVibetamideActive
 
                         // ::onActivated must be used, as it only listens for when the index is changed by a human
                         onActivated : {
@@ -654,6 +660,8 @@ Flickable {
                         id: fpsComboBox
                         maximumWidth: parent.width / 2
                         textRole: "text"
+                        enabled: !StreamingPreferences.isVibetamideActive
+
                         // ::onActivated must be used, as it only listens for when the index is changed by a human
                         onActivated : {
                             if (model.get(currentIndex).is_custom) {
@@ -706,6 +714,8 @@ Flickable {
                         onMoved: {
                             StreamingPreferences.autoAdjustBitrate = false
                         }
+
+                        enabled: !StreamingPreferences.isVibetamideActive
 
                         Component.onCompleted: {
                             // Refresh the text after translations change
@@ -1797,6 +1807,123 @@ Flickable {
                     ToolTip.text: qsTr("Display real-time stream performance information while streaming.") + "\n\n" +
                                   qsTr("You can toggle it at any time while streaming using Ctrl+Alt+Shift+S or Select+L1+R1+X.") + "\n\n" +
                                   qsTr("The performance overlay is not supported on Steam Link or Raspberry Pi.")
+                }
+            }
+        GroupBox {
+            id: vibetamideLabsGroupBox
+            width: (parent.width - (parent.leftPadding + parent.rightPadding))
+            padding: 12
+            title: "<font color=\"#a020f0\">" + qsTr("Vibetamide Labs (Beta)") + "</font>"
+            font.pointSize: 12 * SystemProperties.uiScaleFactor
+
+            Column {
+                anchors.fill: parent
+                spacing: 15
+
+                Label {
+                    width: parent.width
+                    text: qsTr("SteamGridDB API Key")
+                    font.pointSize: 12 * SystemProperties.uiScaleFactor
+                    color: "white"
+                }
+
+                TextField {
+                    id: steamGridDbApiKeyField
+                    width: parent.width * 0.8
+                    placeholderText: qsTr("Enter your API Key from steamgriddb.com")
+                    text: StreamingPreferences.steamGridDbApiKey
+                    echoMode: TextInput.PasswordEchoOnEdit
+                    selectByMouse: true
+                    onTextEdited: {
+                        StreamingPreferences.steamGridDbApiKey = text
+                    }
+                    
+                    background: Rectangle {
+                        color: "#222"
+                        radius: 4
+                        border.color: parent.focus ? "#a020f0" : "#444"
+                    }
+                    color: "white"
+                    font.pointSize: 11 * SystemProperties.uiScaleFactor
+                }
+
+                Button {
+                    text: qsTr("Save API Key")
+                    onClicked: {
+                        StreamingPreferences.save()
+                    }
+                }
+
+                Label {
+                    width: parent.width
+                    text: qsTr("If set, Moonlight will automatically download missing game covers from SteamGridDB.")
+                    font.pointSize: 10 * SystemProperties.uiScaleFactor
+                    wrapMode: Text.Wrap
+                    opacity: 0.7
+                }
+
+                Label {
+                    width: parent.width
+                    text: qsTr("MoonDeck Buddy Settings")
+                    font.pointSize: 12 * SystemProperties.uiScaleFactor
+                    color: "skyblue"
+                }
+
+                TextField {
+                    id: moondeckClientIdField
+                    width: parent.width * 0.8
+                    placeholderText: qsTr("Enter MoonDeck Client ID (e.g. MoonDeck-Buddy)")
+                    text: StreamingPreferences.moondeckClientId
+                    selectByMouse: true
+                    onTextEdited: {
+                        StreamingPreferences.moondeckClientId = text
+                    }
+                    background: Rectangle {
+                        color: "#222"
+                        radius: 4
+                        border.color: parent.focus ? "skyblue" : "#444"
+                    }
+                    color: "white"
+                    font.pointSize: 11 * SystemProperties.uiScaleFactor
+                }
+
+                TextField {
+                    id: moondeckPortField
+                    width: parent.width * 0.3
+                    placeholderText: qsTr("Port (Default: 59999)")
+                    text: StreamingPreferences.moondeckPort.toString()
+                    inputMethodHints: Qt.ImhDigitsOnly
+                    selectByMouse: true
+                    onTextChanged: {
+                        var p = parseInt(text)
+                        if (!isNaN(p)) {
+                            StreamingPreferences.moondeckPort = p
+                        }
+                    }
+                    background: Rectangle {
+                        color: "#222"
+                        radius: 4
+                        border.color: parent.focus ? "skyblue" : "#444"
+                    }
+                    color: "white"
+                    font.pointSize: 11 * SystemProperties.uiScaleFactor
+                }
+
+                Button {
+                    id: clearCacheButton
+                    text: qsTr("Clear BoxArt Cache")
+                    highlighted: true
+                    onClicked: {
+                        AppModel.m_BoxArtManager.clearAllBoxArt()
+                        // Force a refresh of the computers to reload app list and trigger new fetches
+                        ComputerManager.stopPollingAsync()
+                        ComputerManager.startPolling()
+                    }
+                    
+                    ToolTip.delay: 1000
+                    ToolTip.timeout: 5000
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr("Deletes all cached images and attempts to redownload them (using SteamGridDB if configured).")
                 }
             }
         }

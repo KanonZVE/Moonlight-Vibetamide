@@ -18,48 +18,43 @@ This project is **Vibecoded**: an intensive optimization process where every lin
 - **Platform-Aware Intelligence**: Native detection for **Gamescope**, **Bazzite OS**, and modern handheld devices. It automatically handles *Borderless Windowed* mode and fine-tunes touch input for a seamless experience.
 - **Ultra Low Latency (Vibetamide Pacer)**: Critical optimizations in the video and audio pipelines that reduce buffers to the absolute minimum for near-instant response.
 
-### 🐔 Vibepollo Cloud Integration
-- **Community-Driven Profiles**: Automatically syncs with the Vibepollo API to download configuration profiles optimized by the community for your specific game and device.
-- **Intelligent Handshake**: Real-time capability negotiation between the client and host for maximum performance.
+### 🎮 MoonDeck Buddy Ecosystem
+- **Unified Library**: Exclusive integration that merges your local Sunshine apps with your entire **Steam Library**, including Non-Steam games and shortcuts added to Steam.
+- **Hybrid Launch Engine**: Intelligent coordination between Moonlight and the host. It automatically initializes the stream (via Steam/Desktop bridge) and uses the MoonDeck API to bring your target game to the foreground seamlessly.
+- **Steam Source Indicators**: Premium visual distinction on the game grid for Steam-originated titles, featuring custom glow effects and iconography to identify your library's origin.
+
+### 🖼️ Smart Art & Vibetamide Labs
+- **SteamGridDB Integration**: Automatically fetches and caches high-quality box art from [SteamGridDB](https://www.steamgriddb.com/) for missing or non-Steam titles, ensuring your gallery always looks professional.
+- **Experimental Features**: Access cutting-edge optimizations specifically designed for high-resolution handheld screens (7" to 8" and beyond) and large 4K displays (up to 75"+).
 
 ### 🌈 UI/UX Redesign
 - **Glassmorphism Aesthetic**: A clean, modern interface featuring translucent elements, rounded corners, and crystal-like effects.
 - **Dynamic Backgrounds**: The UI flows with your library, transforming its background to match the selected game's box art with elegant Gaussian blur and vignette effects.
 - **Fluid Micro-animations**: Polished scale transitions and lighting effects (glow) that make navigating your games feel premium and responsive.
 
-### 💡 Core Enhancements
-- **Vulkan HDR10 Perfection**: Specific integration fixes for 10-bit HDR on Linux/Vulkan, delivering vibrant colors and deep blacks as they were meant to be seen.
-- **Vibecoded Stability**: Enhanced algorithms to maintain a rock-solid stream even on challenging wireless networks.
-
----
-
-## 🎮 Compatible Devices
-While fully functional on any PC, **Moonlight Vibetamide** is optimized for:
-- **ROG Ally / Ally X**
-- **Steam Deck / OLED**
-- **Lenovo Legion Go**
-- **MSI Claw**
-- **ARM64 Devices** (Surface Pro, etc. via native Windows ARM64 build)
-- Any device running **Bazzite**, **SteamOS**, or **ChimeraOS**.
-
 ---
 
 ## ❤️ Respect to the Giants
-**Moonlight Vibetamide** is a fork and stands on the shoulders of the incredible pioneers who built the foundation of game streaming. Our deepest gratitude goes to:
-- The **Moonlight GameStream Team**: For creating the most powerful and versatile open-source streaming client in existence.
-- The **Sunshine Developers**: For their tireless work in keeping the host-side ecosystem independent and accessible.
-- The **Entire Open Source Community**: Every contributor to Moonlight-Qt who made this evolution possible.
+**Moonlight Vibetamide** stands on the shoulders of incredible pioneers. Our deepest gratitude goes to:
+- **The Moonlight GameStream Team**: For creating the most powerful and versatile open-source streaming client in existence.
+- **FrogTheFrog (MoonDeck & MoonDeck Buddy)**: For the visionary host-side tools that enable our unified Steam library experience. [Check out MoonDeck Buddy here](https://github.com/FrogTheFrog/moondeck-buddy).
+- **The Sunshine Developers**: For their tireless work in keeping the host-side ecosystem independent and accessible.
+- **The Entire Open Source Community**: Every contributor to Moonlight-Qt who made this evolution possible.
+
+---
+
+## ⚖️ Legal & Licensing
+This project is an evolution of **Moonlight-Qt** and is provided under the **GNU General Public License v3.0**.
+- **Original Source**: [moonlight-stream/moonlight-qt](https://github.com/moonlight-stream/moonlight-qt)
+- **Modifications**: All enhancements, "vibetamide" optimizations, and MoonDeck integrations in this fork are maintained by the Vibetamide community.
+- **Disclaimer**: This is a community project and is not affiliated with NVIDIA Corporation or the official Moonlight team.
 
 ---
 
 ## 🛠️ Get Started
 1. Download the latest build from [KanonZVE/Moonlight-Vibetamide](https://github.com/KanonZVE/Moonlight-Vibetamide).
-2. Enable **Smart Autoconfiguration** in the settings.
+2. Configure your **MoonDeck Client ID** in *Settings > Vibetamide Labs* to enable unified library support.
 3. Experience game streaming like never before.
-
----
-## Contribute
-Moonlight Vibetamide is a community-focused project by [KanonZVE](https://github.com/KanonZVE). Please feel free to open Pull Requests or report issues to help us push the handheld experience even further.
 
 ---
 *Vibecoded with ❤️. Dedicated to the Handheld Era.*

@@ -53,6 +53,9 @@
 #define SER_LANGUAGE "language"
 #define SER_SMARTAUTOCONFIG "smartautoconfig"
 #define SER_ULTRALOWLATENCY "ultralowlatency"
+#define SER_STEAMGRIDDBAPIKEY "steamgriddbapikey"
+#define SER_MOONDECKCLIENTID "moondeckclientid"
+#define SER_MOONDECKPORT "moondeckport"
 
 #define CURRENT_DEFAULT_VER 2
 
@@ -172,6 +175,9 @@ void StreamingPreferences::reload()
                                                     static_cast<int>(Language::LANG_AUTO)).toInt());
     enableSmartAutoconfig = settings.value(SER_SMARTAUTOCONFIG, false).toBool();
     enableUltraLowLatency = settings.value(SER_ULTRALOWLATENCY, false).toBool();
+    steamGridDbApiKey = settings.value(SER_STEAMGRIDDBAPIKEY, "").toString();
+    moondeckClientId = settings.value(SER_MOONDECKCLIENTID, "").toString();
+    moondeckPort = settings.value(SER_MOONDECKPORT, 53421).toInt();
 
 
     // Perform default settings updates as required based on last default version
@@ -364,6 +370,9 @@ void StreamingPreferences::save()
     settings.setValue(SER_KEEPAWAKE, keepAwake);
     settings.setValue(SER_SMARTAUTOCONFIG, enableSmartAutoconfig);
     settings.setValue(SER_ULTRALOWLATENCY, enableUltraLowLatency);
+    settings.setValue(SER_STEAMGRIDDBAPIKEY, steamGridDbApiKey);
+    settings.setValue(SER_MOONDECKCLIENTID, moondeckClientId);
+    settings.setValue(SER_MOONDECKPORT, moondeckPort);
 }
 
 int StreamingPreferences::getDefaultBitrate(int width, int height, int fps, bool yuv444)

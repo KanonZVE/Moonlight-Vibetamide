@@ -4,19 +4,22 @@
 #include <QImageReader>
 #include <QImageWriter>
 
+#include "steamgriddbmanager.h"
+
 BoxArtManager::BoxArtManager(QObject *parent) :
     QObject(parent),
     m_BoxArtDir(Path::getBoxArtCacheDir()),
     m_ThreadPool(this)
 {
-    // 4 is a good balance between fast loading for large
-    // app grids and not crushing GFE with tons of requests
-    // and causing UI jank from constantly stalling to decode
-    // new images.
+    // ... setup ...
     m_ThreadPool.setMaxThreadCount(4);
     if (!m_BoxArtDir.exists()) {
         m_BoxArtDir.mkpath(".");
     }
+
+    // Connect to SteamGridDB fallback
+    connect(&SteamGridDBManager::instance(), &SteamGridDBManager::boxArtDownloaded,
+            this, &BoxArtManager::handleBoxArtLoadComplete);
 }
 
 QString
@@ -97,6 +100,15 @@ void BoxArtManager::deleteBoxArt(NvComputer* computer)
     }
 }
 
+void BoxArtManager::clearAllBoxArt()
+{
+    QDir dir(m_BoxArtDir);
+
+    // Delete everything in the box art cache directory
+    dir.removeRecursively();
+    dir.mkpath(".");
+}
+
 void BoxArtManager::handleBoxArtLoadComplete(NvComputer* computer, NvApp app, QUrl image)
 {
     if (!image.isEmpty()) {
@@ -122,6 +134,21 @@ QUrl BoxArtManager::loadBoxArtFromNetwork(NvComputer* computer, int appId)
         else {
             // A failed save() may leave a zero byte file. Make sure that's removed.
             QFile(cachePath).remove();
+        }
+    } else {
+        // Moonlight Vibetamide: SteamGridDB Fallback
+        NvApp app;
+        app.id = appId;
+        // We find the app name from the computer's app list
+        for (const NvApp& a : computer->appList) {
+            if (a.id == appId) {
+                app.name = a.name;
+                break;
+            }
+        }
+        
+        if (!app.name.isEmpty()) {
+            SteamGridDBManager::instance().fetchBoxArt(app.name, appId, computer->uuid);
         }
     }
 

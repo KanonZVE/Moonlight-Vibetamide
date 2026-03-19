@@ -1,10 +1,17 @@
 #include "appmodel.h"
+#include "settings/streamingpreferences.h"
 
 AppModel::AppModel(QObject *parent)
     : QAbstractListModel(parent)
 {
     connect(&m_BoxArtManager, &BoxArtManager::boxArtLoadComplete,
             this, &AppModel::handleBoxArtLoaded);
+    
+    m_MoonDeckClient = new MoonDeckClient(this);
+    connect(m_MoonDeckClient, &MoonDeckClient::nonSteamAppsFetched,
+            this, &AppModel::handleMoonDeckAppsFetched);
+    connect(m_MoonDeckClient, &MoonDeckClient::errorOccurred,
+            this, &AppModel::handleMoonDeckError);
 }
 
 void AppModel::initialize(ComputerManager* computerManager, int computerIndex, bool showHiddenGames)
@@ -19,6 +26,16 @@ void AppModel::initialize(ComputerManager* computerManager, int computerIndex, b
     m_ShowHiddenGames = showHiddenGames;
 
     updateAppList(m_Computer->appList);
+
+    // Trigger MoonDeck fetch if computer is online and settings are present
+    if (m_Computer->state == NvComputer::CS_ONLINE) {
+        StreamingPreferences* prefs = StreamingPreferences::get();
+        if (!prefs->moondeckClientId.isEmpty()) {
+            m_MoonDeckClient->fetchNonSteamApps(m_Computer->activeAddress.toString(), 
+                                                prefs->moondeckPort, 
+                                                prefs->moondeckClientId);
+        }
+    }
 }
 
 int AppModel::getRunningAppId()
@@ -43,6 +60,47 @@ Session* AppModel::createSessionForApp(int appIndex)
 {
     Q_ASSERT(appIndex < m_VisibleApps.count());
     NvApp app = m_VisibleApps.at(appIndex);
+
+    if (app.isMoonDeckApp) {
+        // Find a bridge app (like Steam)
+        NvApp bridgeApp;
+        bool foundBridge = false;
+        for (const NvApp& a : m_AllApps) {
+            if (a.name.toLower() == "steam" || a.id == 24) {
+                bridgeApp = a;
+                foundBridge = true;
+                break;
+            }
+        }
+        
+        if (!foundBridge) {
+             // Fallback to Desktop or first app
+             for (const NvApp& a : m_AllApps) {
+                if (a.name.toLower().contains("desktop")) {
+                    bridgeApp = a;
+                    foundBridge = true;
+                    break;
+                }
+             }
+        }
+        
+        if (!foundBridge && !m_AllApps.isEmpty()) {
+            bridgeApp = m_AllApps.at(0);
+        }
+
+        Session* session = new Session(m_Computer, bridgeApp);
+        
+        QString moondeckId = app.moondeckId;
+        connect(session, &Session::connectionStarted, this, [this, moondeckId]() {
+             StreamingPreferences* prefs = StreamingPreferences::get();
+             m_MoonDeckClient->launchApp(m_Computer->activeAddress.address(), 
+                                         prefs->moondeckPort, 
+                                         prefs->moondeckClientId, 
+                                         moondeckId);
+        });
+        
+        return session;
+    }
 
     return new Session(m_Computer, app);
 }
@@ -93,6 +151,10 @@ QVariant AppModel::data(const QModelIndex &index, int role) const
         return app.directLaunch;
     case AppCollectorGameRole:
         return app.isAppCollectorGame;
+    case MoonDeckIdRole:
+        return app.moondeckId;
+    case IsMoonDeckAppRole:
+        return app.isMoonDeckApp;
     default:
         return QVariant();
     }
@@ -109,7 +171,8 @@ QHash<int, QByteArray> AppModel::roleNames() const
     names[AppIdRole] = "appid";
     names[DirectLaunchRole] = "directLaunch";
     names[AppCollectorGameRole] = "appCollectorGame";
-
+    names[MoonDeckIdRole] = "moondeckId";
+    names[IsMoonDeckAppRole] = "isMoonDeckApp";
     return names;
 }
 
@@ -317,4 +380,36 @@ void AppModel::handleBoxArtLoaded(NvComputer* computer, NvApp app, QUrl /* image
     else {
         qWarning() << "App not found for box art callback:" << app.name;
     }
+}
+
+void AppModel::handleMoonDeckAppsFetched(const QVector<NvApp>& apps)
+{
+    // Merge MoonDeck apps into m_AllApps
+    QVector<NvApp> combinedList = m_Computer->appList;
+    bool changed = false;
+    
+    for (const NvApp& mdApp : apps) {
+        bool exists = false;
+        for (const NvApp& existing : combinedList) {
+            // Check by name or moondeckId if we already have it
+            if (existing.name == mdApp.name || (existing.isMoonDeckApp && existing.moondeckId == mdApp.moondeckId)) {
+                exists = true;
+                break;
+            }
+        }
+        
+        if (!exists) {
+            combinedList.append(mdApp);
+            changed = true;
+        }
+    }
+    
+    if (changed) {
+        updateAppList(combinedList);
+    }
+}
+
+void AppModel::handleMoonDeckError(const QString& error)
+{
+    qWarning() << "MoonDeck Error:" << error;
 }

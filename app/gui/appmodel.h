@@ -3,6 +3,7 @@
 #include "backend/boxartmanager.h"
 #include "backend/computermanager.h"
 #include "streaming/session.h"
+#include "backend/moondeckclient.h"
 
 #include <QAbstractListModel>
 
@@ -19,6 +20,8 @@ class AppModel : public QAbstractListModel
         AppIdRole,
         DirectLaunchRole,
         AppCollectorGameRole,
+        MoonDeckIdRole,
+        IsMoonDeckAppRole,
     };
 
 public:
@@ -52,6 +55,10 @@ private slots:
 
     void handleBoxArtLoaded(NvComputer* computer, NvApp app, QUrl image);
 
+    void handleMoonDeckAppsFetched(const QVector<NvApp>& apps);
+
+    void handleMoonDeckError(const QString& error);
+
 signals:
     void computerLost();
 
@@ -65,6 +72,7 @@ private:
     NvComputer* m_Computer;
     BoxArtManager m_BoxArtManager;
     ComputerManager* m_ComputerManager;
+    MoonDeckClient* m_MoonDeckClient;
     QVector<NvApp> m_VisibleApps, m_AllApps;
     int m_CurrentGameId;
     bool m_ShowHiddenGames;

@@ -15,7 +15,9 @@ public:
                 hdrSupported == other.hdrSupported &&
                 isAppCollectorGame == other.isAppCollectorGame &&
                 hidden == other.hidden &&
-                directLaunch == other.directLaunch;
+                directLaunch == other.directLaunch &&
+                moondeckId == other.moondeckId &&
+                isMoonDeckApp == other.isMoonDeckApp;
     }
 
     bool operator!=(const NvApp& other) const
@@ -37,6 +39,8 @@ public:
     bool isAppCollectorGame = false;
     bool hidden = false;
     bool directLaunch = false;
+    QString moondeckId;
+    bool isMoonDeckApp = false;
 };
 
 Q_DECLARE_METATYPE(NvApp)

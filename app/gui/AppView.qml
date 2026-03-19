@@ -16,9 +16,12 @@ CenteredGridView {
     id: appGrid
     focus: true
     activeFocusOnTab: true
-    topMargin: 20
-    bottomMargin: 5
-    cellWidth: 230; cellHeight: 297;
+    topMargin: 20 * SystemProperties.uiScaleFactor
+    bottomMargin: 5 * SystemProperties.uiScaleFactor
+    cellWidth: 230 * SystemProperties.uiScaleFactor; cellHeight: 297 * SystemProperties.uiScaleFactor;
+
+    // Moonlight Vibetamide: Wrap-around navigation
+    keyNavigationWraps: true
 
     function computerLost()
     {
@@ -71,7 +74,7 @@ CenteredGridView {
     model: appModel
 
     delegate: NavigableItemDelegate {
-        width: 220; height: 287;
+        width: 220 * SystemProperties.uiScaleFactor; height: 287 * SystemProperties.uiScaleFactor;
         grid: appGrid
 
         property alias appContextMenu: appContextMenuLoader.item
@@ -121,8 +124,8 @@ CenteredGridView {
                     isPlaceholder = false
                 }
 
-                width = 200
-                height = 267
+                width = 200 * SystemProperties.uiScaleFactor
+                height = 267 * SystemProperties.uiScaleFactor
             }
 
             // Display a tooltip with the full name if it's truncated
@@ -130,6 +133,39 @@ CenteredGridView {
             ToolTip.delay: 1000
             ToolTip.timeout: 5000
             ToolTip.visible: (parent.hovered || parent.highlighted) && (!appNameText || appNameText.truncated)
+        }
+
+        // Moonlight Vibetamide: MoonDeck Source Indicator
+        Rectangle {
+            visible: model.isMoonDeckApp
+            anchors.right: appIcon.right
+            anchors.top: appIcon.top
+            anchors.margins: 10 * SystemProperties.uiScaleFactor
+            width: 36 * SystemProperties.uiScaleFactor
+            height: 36 * SystemProperties.uiScaleFactor
+            radius: width / 2
+            color: "#1b2838" // Steam Dark Blue
+            border.color: "#66c0f4" // Steam Light Blue
+            border.width: 1.5 * SystemProperties.uiScaleFactor
+            z: 5
+
+            Image {
+                anchors.fill: parent
+                anchors.margins: 6 * SystemProperties.uiScaleFactor
+                source: "qrc:/res/ic_videogame_asset_white_48px.svg"
+                smooth: true
+                opacity: 0.9
+            }
+
+            // Glow effect for MoonDeck items
+            layer.enabled: true
+            layer.effect: ShaderEffect {
+                fragmentShader: "
+                    varying highp vec2 qt_TexCoord0;
+                    void main() {
+                        gl_FragColor = vec4(0.4, 0.75, 0.95, 0.3) * (1.0 - length(qt_TexCoord0 - 0.5) * 2.0);
+                    }"
+            }
         }
 
         Loader {
@@ -209,7 +245,7 @@ CenteredGridView {
             sourceComponent: Label {
                 id: appNameText
                 text: model.name
-                font.pointSize: 22
+                font.pointSize: 22 * SystemProperties.uiScaleFactor
                 leftPadding: 20
                 rightPadding: 20
                 verticalAlignment: Text.AlignVCenter

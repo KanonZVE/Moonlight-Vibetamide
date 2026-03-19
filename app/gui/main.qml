@@ -275,8 +275,8 @@ ApplicationWindow {
             id: titleLabel
             visible: toolBar.width > 700
             anchors.fill: parent
-            text: stackView.currentItem.objectName
-            font.pointSize: 20
+            text: stackView.currentItem.objectName === qsTr("Settings") ? "Moonlight Vibetamide" : stackView.currentItem.objectName
+            font.pointSize: 20 * SystemProperties.uiScaleFactor
             elide: Label.ElideRight
             horizontalAlignment: Qt.AlignHCenter
             verticalAlignment: Qt.AlignVCenter
@@ -320,8 +320,8 @@ ApplicationWindow {
             Label {
                 id: versionLabel
                 visible: stackView.currentItem instanceof SettingsView
-                text: qsTr("Version %1").arg(SystemProperties.versionString)
-                font.pointSize: 12
+                text: qsTr("Vibetamide v%1").arg(SystemProperties.versionString)
+                font.pointSize: 12 * SystemProperties.uiScaleFactor
                 horizontalAlignment: Qt.AlignRight
                 verticalAlignment: Qt.AlignVCenter
             }

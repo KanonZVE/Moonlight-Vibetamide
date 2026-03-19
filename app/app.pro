@@ -2,10 +2,10 @@ QT += core quick network quickcontrols2 svg
 CONFIG += c++17
 
 unix:!macx {
-    TARGET = moonlight
+    TARGET = vibetamide
 } else {
     # On macOS, this is the name displayed in the global menu bar
-    TARGET = Moonlight
+    TARGET = "Moonlight Vibetamide"
 }
 
 include(../globaldefs.pri)
@@ -198,6 +198,7 @@ SOURCES += \
     backend/systemproperties.cpp \
     streaming/autoconfig/autoconfigengine.cpp \
     streaming/autoconfig/vibepolloclient.cpp \
+    backend/moondeckclient.cpp \
     wm.cpp
 
 HEADERS += \
@@ -237,7 +238,8 @@ HEADERS += \
     streaming/video/overlaymanager.h \
     streaming/autoconfig/autoconfigengine.h \
     streaming/autoconfig/vibepolloclient.h \
-    backend/systemproperties.h
+    backend/systemproperties.h \
+    backend/moondeckclient.h
 
 # Platform-specific renderers and decoders
 ffmpeg {
@@ -541,9 +543,9 @@ unix:!macx: {
 }
 win32 {
     RC_ICONS = moonlight.ico
-    QMAKE_TARGET_COMPANY = Moonlight Game Streaming Project
-    QMAKE_TARGET_DESCRIPTION = Moonlight Game Streaming Client
-    QMAKE_TARGET_PRODUCT = Moonlight
+    QMAKE_TARGET_COMPANY = Vibetamide Project
+    QMAKE_TARGET_DESCRIPTION = Moonlight Vibetamide Client - Optimized for Handhelds
+    QMAKE_TARGET_PRODUCT = Moonlight Vibetamide
 
     CONFIG -= embed_manifest_exe
     QMAKE_LFLAGS += /MANIFEST:embed /MANIFESTINPUT:$${PWD}/Moonlight.exe.manifest

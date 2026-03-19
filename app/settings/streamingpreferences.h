@@ -145,10 +145,15 @@ public:
     Q_PROPERTY(bool keepAwake MEMBER keepAwake NOTIFY keepAwakeChanged)
     Q_PROPERTY(CaptureSysKeysMode captureSysKeysMode MEMBER captureSysKeysMode NOTIFY captureSysKeysModeChanged)
     Q_PROPERTY(Language language MEMBER language NOTIFY languageChanged);
-    Q_PROPERTY(bool enableSmartAutoconfig MEMBER enableSmartAutoconfig NOTIFY enableSmartAutoconfigChanged)
     Q_PROPERTY(bool enableUltraLowLatency MEMBER enableUltraLowLatency NOTIFY enableUltraLowLatencyChanged)
+    Q_PROPERTY(bool isVibetamideActive READ getIsVibetamideActive NOTIFY enableSmartAutoconfigChanged)
+    Q_PROPERTY(QString steamGridDbApiKey MEMBER steamGridDbApiKey NOTIFY steamGridDbApiKeyChanged)
+    Q_PROPERTY(QString moondeckClientId MEMBER moondeckClientId NOTIFY moondeckClientIdChanged)
+    Q_PROPERTY(int moondeckPort MEMBER moondeckPort NOTIFY moondeckPortChanged)
 
     Q_INVOKABLE bool retranslate();
+
+    bool getIsVibetamideActive() const { return enableSmartAutoconfig; }
 
     // Directly accessible members for preferences
     int width;
@@ -191,6 +196,9 @@ public:
     CaptureSysKeysMode captureSysKeysMode;
     bool enableSmartAutoconfig;
     bool enableUltraLowLatency;
+    QString steamGridDbApiKey;
+    QString moondeckClientId;
+    int moondeckPort;
 
 signals:
     void displayModeChanged();
@@ -230,6 +238,9 @@ signals:
     void languageChanged();
     void enableSmartAutoconfigChanged();
     void enableUltraLowLatencyChanged();
+    void steamGridDbApiKeyChanged();
+    void moondeckClientIdChanged();
+    void moondeckPortChanged();
 
 private:
     explicit StreamingPreferences(QQmlEngine *qmlEngine);
