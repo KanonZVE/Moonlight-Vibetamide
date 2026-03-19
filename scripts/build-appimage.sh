@@ -62,7 +62,10 @@ echo Creating AppImage
 pushd $INSTALLER_FOLDER
 VERSION=$VERSION linuxdeployqt $DEPLOY_FOLDER/usr/share/applications/com.moonlight_stream.Moonlight.desktop \
   -qmake=qmake6 -qmldir=$SOURCE_ROOT/app/gui -appimage -extra-plugins=tls \
-  -executable=$DEPLOY_FOLDER/usr/lib/libSDL3.so.0 -output=Moonlight-$VERSION-x86_64.AppImage || fail "linuxdeployqt failed!"
+  -executable=$DEPLOY_FOLDER/usr/lib/libSDL3.so.0 || fail "linuxdeployqt failed!"
+
+# Rename the generated AppImage to include the version
+mv Moonlight-x86_64.AppImage Moonlight-$VERSION-x86_64.AppImage || fail "Move failed!"
 popd
 
 echo Build successful
