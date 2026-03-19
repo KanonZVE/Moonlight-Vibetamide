@@ -80,9 +80,11 @@ void AutoConfigEngine::optimizeConfiguration(PSTREAM_CONFIGURATION config, const
     // 2. Adjust Bitrate based on detected resolution
     config->bitrate = calculateOptimalBitrate(config->width, config->height, config->fps);
 
-    // 3. Auto-enable HDR if display and host support it
+    // 3. HDR: Moonlight's HDR is controlled via supportedVideoFormats (VIDEO_FORMAT_MASK_10BIT)
+    // which is set from user preferences in streamingpreferences.cpp before reaching us.
+    // We only log the current HDR preference here; no need to set it on the config struct.
     if (prefs->enableHdr) {
-        config->remoteHdrMode = 1;
+        qInfo() << "AutoConfig: HDR is enabled by user preference.";
     }
 
     // Moonlight Vitaminado: Platform-specific overrides
