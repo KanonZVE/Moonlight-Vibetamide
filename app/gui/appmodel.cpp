@@ -22,6 +22,7 @@ void AppModel::initialize(ComputerManager* computerManager, int computerIndex, b
 
     Q_ASSERT(computerIndex < m_ComputerManager->getComputers().count());
     m_Computer = m_ComputerManager->getComputers().at(computerIndex);
+    m_BoxArtManager.setComputer(m_Computer);
     m_CurrentGameId = m_Computer->currentGameId;
     m_ShowHiddenGames = showHiddenGames;
 

@@ -22,6 +22,12 @@ public:
     void
     deleteBoxArt(NvComputer* computer);
 
+    void
+    clearAllBoxArt();
+
+    void
+    setComputer(NvComputer* computer);
+
 signals:
     void
     boxArtLoadComplete(NvComputer* computer, NvApp app, QUrl image);
@@ -32,6 +38,9 @@ private slots:
     void
     handleBoxArtLoadComplete(NvComputer* computer, NvApp app, QUrl image);
 
+    void
+    handleSteamGridDBFinished(const QString& computerUuid, int appId, const QUrl& localFile);
+
 private:
     QUrl
     loadBoxArtFromNetwork(NvComputer* computer, int appId);
@@ -41,4 +50,5 @@ private:
 
     QDir m_BoxArtDir;
     QThreadPool m_ThreadPool;
+    NvComputer* m_Computer;
 };

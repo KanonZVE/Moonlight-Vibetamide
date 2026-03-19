@@ -9,7 +9,8 @@
 BoxArtManager::BoxArtManager(QObject *parent) :
     QObject(parent),
     m_BoxArtDir(Path::getBoxArtCacheDir()),
-    m_ThreadPool(this)
+    m_ThreadPool(this),
+    m_Computer(nullptr)
 {
     // ... setup ...
     m_ThreadPool.setMaxThreadCount(4);
@@ -19,7 +20,28 @@ BoxArtManager::BoxArtManager(QObject *parent) :
 
     // Connect to SteamGridDB fallback
     connect(&SteamGridDBManager::instance(), &SteamGridDBManager::boxArtDownloaded,
-            this, &BoxArtManager::handleBoxArtLoadComplete);
+            this, &BoxArtManager::handleSteamGridDBFinished);
+}
+
+void BoxArtManager::setComputer(NvComputer* computer)
+{
+    m_Computer = computer;
+}
+
+void BoxArtManager::handleSteamGridDBFinished(const QString& computerUuid, int appId, const QUrl& localFile)
+{
+    if (m_Computer && m_Computer->uuid == computerUuid) {
+        NvApp app;
+        app.id = appId;
+        // Search for the app in the computer's app list to get its name if possible
+        for (const NvApp& a : m_Computer->appList) {
+            if (a.id == appId) {
+                app = a;
+                break;
+            }
+        }
+        handleBoxArtLoadComplete(m_Computer, app, localFile);
+    }
 }
 
 QString
