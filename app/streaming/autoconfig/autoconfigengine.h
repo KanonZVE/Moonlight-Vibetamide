@@ -2,7 +2,7 @@
 
 #include <QObject>
 #include <QSize>
-#include "Limelight.h"
+#include <Limelight.h>
 #include "vibepolloclient.h"
 
 class AutoConfigEngine : public QObject

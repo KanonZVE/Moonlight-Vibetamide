@@ -1,6 +1,7 @@
 #include "autoconfigengine.h"
-#include "streamingpreferences.h"
-#include <SDL.h>
+#include "settings/streamingpreferences.h"
+#include "SDL_compat.h"
+#include <QJsonObject>
 #include <QDebug>
 #include <QFile>
 #include <QProcess>
@@ -10,7 +11,7 @@ AutoConfigEngine::AutoConfigEngine(QObject *parent)
     : QObject(parent),
       m_Vibepollo(new VibepolloClient(this))
 {
-    connect(m_Nam, &VibepolloClient::communityProfileReady, this, [this](const QJsonObject& profile) {
+    connect(m_Vibepollo, &VibepolloClient::communityProfileReady, this, [this](const QJsonObject& profile) {
         m_LastCommunityProfile = profile;
         qInfo() << "AutoConfig: Received community profile from Vibepollo!";
     });
