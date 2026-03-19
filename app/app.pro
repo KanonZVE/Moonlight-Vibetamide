@@ -199,6 +199,7 @@ SOURCES += \
     streaming/autoconfig/autoconfigengine.cpp \
     streaming/autoconfig/vibepolloclient.cpp \
     backend/moondeckclient.cpp \
+    backend/steamgriddbmanager.cpp \
     wm.cpp
 
 HEADERS += \
@@ -239,7 +240,8 @@ HEADERS += \
     streaming/autoconfig/autoconfigengine.h \
     streaming/autoconfig/vibepolloclient.h \
     backend/systemproperties.h \
-    backend/moondeckclient.h
+    backend/moondeckclient.h \
+    backend/steamgriddbmanager.h
 
 # Platform-specific renderers and decoders
 ffmpeg {
