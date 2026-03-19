@@ -64,8 +64,10 @@ VERSION=$VERSION linuxdeployqt $DEPLOY_FOLDER/usr/share/applications/com.moonlig
   -qmake=qmake6 -qmldir=$SOURCE_ROOT/app/gui -appimage -extra-plugins=tls \
   -executable=$DEPLOY_FOLDER/usr/lib/libSDL3.so.0 || fail "linuxdeployqt failed!"
 
-# Rename the generated AppImage to include the version
-mv *.AppImage Moonlight-$VERSION-x86_64.AppImage || fail "Move failed!"
+# Rename the generated AppImage to include the version (only if not already named correctly)
+if [ -f Moonlight-x86_64.AppImage ]; then
+    mv Moonlight-x86_64.AppImage Moonlight-$VERSION-x86_64.AppImage || fail "Move failed!"
+fi
 popd
 
 echo Build successful
