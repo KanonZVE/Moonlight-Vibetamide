@@ -427,9 +427,10 @@ int main(int argc, char *argv[])
     // Set these here to allow us to use the default QSettings constructor.
     // These also ensure that our cache directory is named correctly. As such,
     // it is critical that these be called before Path::initialize().
-    QCoreApplication::setOrganizationName("Vibetamide Project");
-    QCoreApplication::setOrganizationDomain("vibetamide.io");
-    QCoreApplication::setApplicationName("Moonlight Vibetamide");
+    QCoreApplication::setOrganizationName("Moonlight-stream.org");
+    QCoreApplication::setOrganizationDomain("moonlight-stream.org");
+    QCoreApplication::setApplicationName("Moonlight");
+    QCoreApplication::setApplicationDisplayName("Moonlight Vibetamide");
 
     if (QFile(QDir::currentPath() + "/portable.dat").exists()) {
         QSettings::setDefaultFormat(QSettings::IniFormat);

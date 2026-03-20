@@ -1833,6 +1833,7 @@ Flickable {
                                   qsTr("The performance overlay is not supported on Steam Link or Raspberry Pi.")
                 }
             }
+        }
         GroupBox {
             id: vibetamideLabsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
