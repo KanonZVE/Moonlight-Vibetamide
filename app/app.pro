@@ -5,7 +5,7 @@ unix:!macx {
     TARGET = vibetamide
 } else {
     # On macOS, this is the name displayed in the global menu bar
-    TARGET = "Moonlight Vibetamide"
+    TARGET = Moonlight
 }
 
 include(../globaldefs.pri)
