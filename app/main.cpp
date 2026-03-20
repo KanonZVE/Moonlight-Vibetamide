@@ -430,7 +430,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("Moonlight-stream.org");
     QCoreApplication::setOrganizationDomain("moonlight-stream.org");
     QCoreApplication::setApplicationName("Moonlight");
-    QCoreApplication::setApplicationDisplayName("Moonlight Vibetamide");
 
     if (QFile(QDir::currentPath() + "/portable.dat").exists()) {
         QSettings::setDefaultFormat(QSettings::IniFormat);
@@ -736,6 +735,7 @@ int main(int argc, char *argv[])
     SDL_SetHint("SDL_WINDOWS_DETECT_DEVICE_HOTPLUG", "0");
 
     QGuiApplication app(argc, argv);
+    QGuiApplication::setApplicationDisplayName("Moonlight Vibetamide");
 
 #ifdef Q_OS_UNIX
     // Register signal handlers to arbitrate between SDL and Qt.
