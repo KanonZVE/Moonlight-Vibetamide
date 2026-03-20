@@ -1,4 +1,4 @@
-#!/bin/sh
+﻿#!/bin/sh
 
 # The default HOME is not persistent, so override
 # it to a path on the onboard flash. Otherwise our

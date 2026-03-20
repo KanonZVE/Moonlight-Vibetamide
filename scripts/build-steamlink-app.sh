@@ -1,4 +1,4 @@
-BUILD_CONFIG="release"
+﻿BUILD_CONFIG="release"
 QT_514_COMMIT="609d4aaccb503298e7fa9cef45e0ddc4c4afd63c"
 
 fail()
